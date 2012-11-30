@@ -1,1 +1,1 @@
-pbpaste | pastie.rb | pbcopy
+pbpaste | pastie.rb -p | pbcopy

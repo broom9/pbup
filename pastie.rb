@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Found from https://gist.github.com/1976443
+# Derived from https://gist.github.com/1976443
 require 'net/http'
 require 'optparse'
 require 'timeout'
@@ -31,6 +31,10 @@ module Pastie
     PASTIE_URI = 'pastie.org'
     
     def paste(body, format='plaintext', is_private=false)
+      if body.size > 64000
+        $stderr.puts "Input over 64k limit, use Dropbox instead?"
+        return body
+      end
       raise InvalidParser unless valid_parser?(format)
       http = Net::HTTP.new(PASTIE_URI)
       query_string = { :paste => {
